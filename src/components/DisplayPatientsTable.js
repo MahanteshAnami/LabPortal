@@ -50,7 +50,7 @@ export default function DisplayPatientsTable() {
   return (
     <div className='text-center'>
     <Box sx={{ height: 600, width: '100%', }}
-    className="py-2">
+    className="py-2 ">
       <DataGrid
         rows={rows}
         columns={columns}
@@ -65,7 +65,7 @@ export default function DisplayPatientsTable() {
         onRowSelectionModelChange={(newRowSelectionModel) => handleRowSelection(newRowSelectionModel)}
         rowSelectionModel={rowSelectionModel}
         onRowClick={handleRowClick}
-        className='px-auto bg-gray-50 text-md mx-32  py-1' 
+        className='px-auto bg-gray-50 text-md mx-32  py-1 shadow-md shadow-blue-300 hover:shadow-xl hover:shadow-blue-100' 
       />
       <Modal
         open={open}
