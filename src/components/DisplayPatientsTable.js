@@ -6,32 +6,20 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { IoCloseCircleSharp } from "react-icons/io5";
+import { AiOutlineDownload } from "react-icons/ai";
 import { jsPDF } from "jspdf";
 
 const columns = [
   {
     field: "id",
-    headerName: "ID",
+    headerName: "Patient ID",
     width: 100,
     headerClassName: "font-semibold text-lg hover:font-bold",
   },
   {
-    field: "firstName",
-    headerName: "First name",
+    field: "patientName",
+    headerName: "Patient Name",
     type: "text",
-    width: 150,
-    headerClassName: "font-semibold text-lg hover:font-bold",
-  },
-  {
-    field: "lastName",
-    headerName: "Last name",
-    type: "text",
-    width: 150,
-    headerClassName: "font-semibold text-lg hover:font-bold",
-  },
-  {
-    field: "dob",
-    headerName: "Date of Birth",
     width: 150,
     headerClassName: "font-semibold text-lg hover:font-bold",
   },
@@ -44,118 +32,168 @@ const columns = [
     flexGrow: 1,
   },
   {
+    field: "testName",
+    headerName: "Test Name",
+    type: "text",
+    width: 150,
+    headerClassName: "font-semibold text-lg hover:font-bold",
+  },
+  {
     field: "diagnosis",
     headerName: "Diagnosis",
     width: 150,
     headerClassName: "font-semibold text-lg hover:font-bold",
   },
   {
-    field: "date",
-    headerName: "Date",
-    type: "dob",
+    field: "biochemistry",
+    headerName: "Bio-chemistry",
     width: 150,
     headerClassName: "font-semibold text-lg hover:font-bold",
   },
   {
-    field: "details",
-    headerName: "Details",
+    field: "vitals",
+    headerName: "Vitals",
     width: 150,
     headerClassName: "font-semibold text-lg hover:font-bold",
+  },
+  {
+    field: "testDate",
+    headerName: "Test Date",
+    width: 150,
+    headerClassName: "font-semibold text-lg hover:font-bold",
+  },
+  {
+    field: "reports",
+    headerName: "Reports",
+    width: 150,
+    headerClassName: "font-semibold text-lg hover:font-bold",
+    renderCell: (params) => (
+      <Button
+        variant="contained"
+        startIcon={<AiOutlineDownload />}
+        onClick={() => handleDownloadReport(params.row)}
+      >
+        Download
+      </Button>
+    ),
   },
 ];
 
 const rows = [
   {
     id: 1,
-    lastName: "Snow",
-    firstName: "Jon",
+    patientName: "Jon Snow",
     age: 14,
-    dob: "17-April-1970",
+    testName: "Blood Test",
     diagnosis: "Headache",
-    date: "17-April-2024",
-    details: "D756",
+    biochemistry: "Normal",
+    vitals: "Stable",
+    testDate: "17-April-2024",
+    reports: "D756",
   },
   {
     id: 2,
-    lastName: "Lannister",
-    firstName: "Cersei",
+    patientName: "Cersei Lannister",
     age: 31,
-    dob: "17-April-1971",
+    testName: "Covid Test",
     diagnosis: "Cold",
-    date: "28-Feb-2024",
-    details: "D734",
+    biochemistry: "High",
+    vitals: "Normal",
+    testDate: "28-Feb-2024",
+    reports: "D734",
   },
   {
     id: 3,
-    lastName: "Lannister",
-    firstName: "Jaime",
+    patientName: "Jaime Lannister",
     age: 31,
-    dob: "17-April-1972",
+    testName: "X-Ray",
     diagnosis: "Leg pain",
-    date: "13-Jan-2024",
-    details: "D956",
+    biochemistry: "Normal",
+    vitals: "Stable",
+    testDate: "13-Jan-2024",
+    reports: "D956",
   },
   {
     id: 4,
-    lastName: "Stark",
-    firstName: "Arya",
+    patientName: "Arya Stark",
     age: 11,
-    dob: "17-April-1973",
+    testName: "Flu Test",
     diagnosis: "Fever",
-    date: "11-Mar-2024",
-    details: "D776",
+    biochemistry: "Normal",
+    vitals: "Critical",
+    testDate: "11-Mar-2024",
+    reports: "D776",
   },
   {
     id: 5,
-    lastName: "Targaryen",
-    firstName: "Daenerys",
+    patientName: "Daenerys Targaryen",
     age: 26,
-    dob: "17-April-1974",
+    testName: "Covid Test",
     diagnosis: "Covid",
-    date: "12-May-2024",
-    details: "D429",
+    biochemistry: "High",
+    vitals: "Critical",
+    testDate: "12-May-2024",
+    reports: "D429",
   },
   {
     id: 6,
-    lastName: "Melisandre",
-    firstName: "Arti",
+    patientName: "Arti Melisandre",
     age: 150,
-    dob: "17-April-1978",
+    testName: "Liver Function Test",
     diagnosis: "Liver Cancer",
-    date: "08-Feb-2024",
-    details: "D753",
+    biochemistry: "Abnormal",
+    vitals: "Critical",
+    testDate: "08-Feb-2024",
+    reports: "D753",
   },
   {
     id: 7,
-    lastName: "Clifford",
-    firstName: "Ferrara",
+    patientName: "Ferrara Clifford",
     age: 44,
-    dob: "17-April-1965",
+    testName: "Respiratory Test",
     diagnosis: "Cough",
-    date: "19-Jan-2024",
-    details: "D962",
+    biochemistry: "Normal",
+    vitals: "Normal",
+    testDate: "19-Jan-2024",
+    reports: "D962",
   },
   {
     id: 8,
-    lastName: "Frances",
-    firstName: "Rossini",
+    patientName: "Rossini Frances",
     age: 36,
-    dob: "17-April-1985",
+    testName: "Blood Test",
     diagnosis: "Headache",
-    date: "16-April-2024",
-    details: "D471",
+    biochemistry: "Normal",
+    vitals: "Stable",
+    testDate: "16-April-2024",
+    reports: "D471",
   },
   {
     id: 9,
-    lastName: "Roxie",
-    firstName: "Harvey",
+    patientName: "Harvey Roxie",
     age: 65,
-    dob: "17-April-1986",
+    testName: "Blood Test",
     diagnosis: "Headache",
-    date: "18-Feb-2024",
-    details: "D850",
+    biochemistry: "Normal",
+    vitals: "Stable",
+    testDate: "18-Feb-2024",
+    reports: "D850",
   },
 ];
+
+const handleDownloadReport = (row) => {
+  const doc = new jsPDF();
+  doc.text("Patient's Report", 20, 10);
+  doc.text(`Patient Name: ${row.patientName}`, 20, 20);
+  doc.text(`Age: ${row.age}`, 20, 30);
+  doc.text(`Test Name: ${row.testName}`, 20, 40);
+  doc.text(`Diagnosis: ${row.diagnosis}`, 20, 50);
+  doc.text(`Bio-chemistry: ${row.biochemistry}`, 20, 60);
+  doc.text(`Vitals: ${row.vitals}`, 20, 70);
+  doc.text(`Test Date: ${row.testDate}`, 20, 80);
+  doc.text(`Report Code: ${row.reports}`, 20, 90);
+  doc.save(`${row.patientName}_Report.pdf`);
+};
 
 export default function DisplayPatientsTable() {
   const [rowSelectionModel, setRowSelectionModel] = React.useState([]);
@@ -183,30 +221,16 @@ export default function DisplayPatientsTable() {
     setSearchTerm(searchValue);
     const filteredData = rows.filter((row) => {
       return (
-        row.firstName.toLowerCase().includes(searchValue) ||
-        row.lastName.toLowerCase().includes(searchValue) ||
-        row.dob.toLowerCase().includes(searchValue) ||
+        row.patientName.toLowerCase().includes(searchValue) ||
+        row.testName.toLowerCase().includes(searchValue) ||
         row.diagnosis.toLowerCase().includes(searchValue) ||
-        row.date.toLowerCase().includes(searchValue) ||
-        row.details.toLowerCase().includes(searchValue)
+        row.biochemistry.toLowerCase().includes(searchValue) ||
+        row.vitals.toLowerCase().includes(searchValue) ||
+        row.testDate.toLowerCase().includes(searchValue) ||
+        row.reports.toLowerCase().includes(searchValue)
       );
     });
     setFilteredRows(filteredData);
-  };
-
-  const handleDownloadPDF = () => {
-    const doc = new jsPDF();
-    doc.text("Patient's Information", 20, 10);
-    doc.text(`First Name: ${selectedRow.firstName}`, 20, 20);
-    doc.text(`Last Name: ${selectedRow.lastName}`, 20, 30);
-    doc.text(`Date of Birth: ${selectedRow.dob}`, 20, 40);
-    doc.text(`Age: ${selectedRow.age}`, 20, 50);
-    doc.text(`Diagnosis: ${selectedRow.daignosis}`, 20, 60);
-    doc.text(`Date: ${selectedRow.date}`, 20, 70);
-    doc.text(`Details: ${selectedRow.details}`, 20, 80);
-    doc.save(
-      `${selectedRow.firstName}_${selectedRow.lastName}_Information.pdf`
-    );
   };
 
   return (
@@ -219,13 +243,13 @@ export default function DisplayPatientsTable() {
             fullWidth
             value={searchTerm}
             onChange={handleSearch}
-            className="my-2 border border-gray-300 rounded-full focus:ring focus:ring-blue-300 "
+            className="my-2 border border-gray-300 rounded-full focus:ring focus:ring-black"
           />
           {filteredRows.length === 0 && (
             <Typography
               variant="h6"
               component="p"
-              className="mt-2 text-red-500"
+              className="mt-2 text-red-800 font-bold text-2xl"
             >
               No matching records found
             </Typography>
@@ -298,21 +322,7 @@ export default function DisplayPatientsTable() {
                   sx={{ mt: 2 }}
                   className="hover:font-bold hover:text-xl"
                 >
-                  <strong>First Name:</strong> {selectedRow.firstName}
-                </Typography>
-                <Typography
-                  id="modal-modal-description"
-                  sx={{ mt: 2 }}
-                  className="hover:font-bold hover:text-xl"
-                >
-                  <strong>Last Name:</strong> {selectedRow.lastName}
-                </Typography>
-                <Typography
-                  id="modal-modal-description"
-                  sx={{ mt: 2 }}
-                  className="hover:font-bold hover:text-xl"
-                >
-                  <strong>Date of Birth:</strong> {selectedRow.dob}
+                  <strong>Patient Name:</strong> {selectedRow.patientName}
                 </Typography>
                 <Typography
                   id="modal-modal-description"
@@ -326,26 +336,47 @@ export default function DisplayPatientsTable() {
                   sx={{ mt: 2 }}
                   className="hover:font-bold hover:text-xl"
                 >
-                  <strong>Diagnosis:</strong> {selectedRow.daignosis}
+                  <strong>Test Name:</strong> {selectedRow.testName}
                 </Typography>
                 <Typography
                   id="modal-modal-description"
                   sx={{ mt: 2 }}
                   className="hover:font-bold hover:text-xl"
                 >
-                  <strong>Date:</strong> {selectedRow.date}
+                  <strong>Diagnosis:</strong> {selectedRow.diagnosis}
                 </Typography>
                 <Typography
                   id="modal-modal-description"
                   sx={{ mt: 2 }}
                   className="hover:font-bold hover:text-xl"
                 >
-                  <strong>Details:</strong> {selectedRow.details}
+                  <strong>Bio-chemistry:</strong> {selectedRow.biochemistry}
+                </Typography>
+                <Typography
+                  id="modal-modal-description"
+                  sx={{ mt: 2 }}
+                  className="hover:font-bold hover:text-xl"
+                >
+                  <strong>Vitals:</strong> {selectedRow.vitals}
+                </Typography>
+                <Typography
+                  id="modal-modal-description"
+                  sx={{ mt: 2 }}
+                  className="hover:font-bold hover:text-xl"
+                >
+                  <strong>Test Date:</strong> {selectedRow.testDate}
+                </Typography>
+                <Typography
+                  id="modal-modal-description"
+                  sx={{ mt: 2 }}
+                  className="hover:font-bold hover:text-xl"
+                >
+                  <strong>Report Code:</strong> {selectedRow.reports}
                 </Typography>
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={handleDownloadPDF}
+                  onClick={() => handleDownloadReport(selectedRow)}
                   sx={{ mt: 2 }}
                   className="hover:bg-blue-700 hover:text-lg"
                 >
