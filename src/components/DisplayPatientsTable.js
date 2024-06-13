@@ -27,14 +27,14 @@ const columns = [
     field: "age",
     headerName: "Age",
     type: "text",
-    width: 150,
+    width: 100,
     headerClassName: "font-bold text-lg hover:text-2xl",
   },
   {
     field: "testName",
     headerName: "Test Name",
     type: "text",
-    width: 200,
+    width: 150,
     headerClassName: "font-bold text-lg hover:text-2xl",
   },
   {
@@ -46,13 +46,13 @@ const columns = [
   {
     field: "biochemistry",
     headerName: "Bio-chemistry",
-    width: 350,
+    width: 300,
     headerClassName: "font-bold text-lg hover:text-2xl",
   },
   {
     field: "vitals",
     headerName: "Vitals",
-    width: 200,
+    width: 150,
     headerClassName: "font-bold text-lg hover:text-2xl",
   },
   {
@@ -68,7 +68,7 @@ const columns = [
     headerClassName: "font-bold text-lg hover:text-2xl",
     renderCell: (params) => (
       <div className="flex items-center justify-center">
-        <span>{params.value}</span>
+        <span className="text-blue-600">{params.value}</span>
         <AiOutlineDownload className="text-blue-500 hover:text-blue-700 cursor-pointer text-2xl font-bold ml-2" />
       </div>
     ),
