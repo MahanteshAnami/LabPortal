@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
-// import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { IoCloseCircleSharp } from "react-icons/io5";
 import { AiOutlineDownload } from "react-icons/ai";
@@ -13,28 +12,29 @@ const columns = [
   {
     field: "id",
     headerName: "Patient ID",
-    width: 100,
-    headerClassName: "font-bold text-lg hover:text-2xl",
+    type: "text",
+    width: 120,
+    headerClassName: "font-bold text-lg hover:text-2xl text-start",
   },
   {
     field: "patientName",
     headerName: "Patient Name",
     type: "text",
-    width: 150,
+    width: 200,
     headerClassName: "font-bold text-lg hover:text-2xl",
   },
   {
     field: "age",
     headerName: "Age",
-    type: "number",
-    width: 100,
+    type: "text",
+    width: 150,
     headerClassName: "font-bold text-lg hover:text-2xl",
   },
   {
     field: "testName",
     headerName: "Test Name",
     type: "text",
-    width: 150,
+    width: 200,
     headerClassName: "font-bold text-lg hover:text-2xl",
   },
   {
@@ -46,13 +46,13 @@ const columns = [
   {
     field: "biochemistry",
     headerName: "Bio-chemistry",
-    width: 150,
+    width: 350,
     headerClassName: "font-bold text-lg hover:text-2xl",
   },
   {
     field: "vitals",
     headerName: "Vitals",
-    width: 150,
+    width: 200,
     headerClassName: "font-bold text-lg hover:text-2xl",
   },
   {
@@ -64,11 +64,12 @@ const columns = [
   {
     field: "reports",
     headerName: "Reports",
-    width: 150,
+    width: 100,
     headerClassName: "font-bold text-lg hover:text-2xl",
     renderCell: (params) => (
       <div className="flex items-center justify-center">
-        <AiOutlineDownload className="text-blue-500 hover:text-blue-700 cursor-pointer text-2xl font-bold mt-4" />
+        <span>{params.value}</span>
+        <AiOutlineDownload className="text-blue-500 hover:text-blue-700 cursor-pointer text-2xl font-bold ml-2" />
       </div>
     ),
   },
@@ -76,101 +77,101 @@ const columns = [
 
 const rows = [
   {
-    id: 1,
+    id: 4215,
     patientName: "Jon Snow",
     age: 14,
     testName: "Blood Test",
     diagnosis: "Headache",
-    biochemistry: "Normal",
-    vitals: "Stable",
+    biochemistry: "Blood urea nitrogen: 8–20 mg/dL ",
+    vitals: "Body Temperature",
     testDate: "17-April-2024",
     reports: "D756",
   },
   {
-    id: 2,
+    id: 4216,
     patientName: "Cersei Lannister",
     age: 31,
     testName: "Covid Test",
     diagnosis: "Cold",
-    biochemistry: "High",
-    vitals: "Normal",
+    biochemistry: "Ferritin: Female: Female: 24–307 ng/mL; male: 24–336 ng/mL ",
+    vitals: "Pulse rate",
     testDate: "28-Feb-2024",
     reports: "D734",
   },
   {
-    id: 3,
+    id: 5278,
     patientName: "Jaime Lannister",
     age: 31,
     testName: "X-Ray",
     diagnosis: "Leg pain",
-    biochemistry: "Normal",
-    vitals: "Stable",
+    biochemistry: "Glucose:70–99 mg/dL ",
+    vitals: "Respiration rate",
     testDate: "13-Jan-2024",
     reports: "D956",
   },
   {
-    id: 4,
+    id: 1678,
     patientName: "Arya Stark",
     age: 11,
     testName: "Flu Test",
     diagnosis: "Fever",
-    biochemistry: "Normal",
-    vitals: "Critical",
+    biochemistry: "Inorganic phosphorous: 3-4.5 mg/dL ",
+    vitals: "Blood pressure",
     testDate: "11-Mar-2024",
     reports: "D776",
   },
   {
-    id: 5,
+    id: 2215,
     patientName: "Daenerys Targaryen",
     age: 26,
     testName: "Covid Test",
     diagnosis: "Covid",
-    biochemistry: "High",
-    vitals: "Critical",
+    biochemistry: "Ionized calcium: 1.12–1.23 mmol/L",
+    vitals: "Pulse rate",
     testDate: "12-May-2024",
     reports: "D429",
   },
   {
-    id: 6,
+    id: 2468,
     patientName: "Arti Melisandre",
     age: 150,
     testName: "Liver Function Test",
     diagnosis: "Liver Cancer",
-    biochemistry: "Abnormal",
-    vitals: "Critical",
+    biochemistry: "Glucose:70–99 mg/dL",
+    vitals: "Blood pressure",
     testDate: "08-Feb-2024",
     reports: "D753",
   },
   {
-    id: 7,
+    id: 7888,
     patientName: "Ferrara Clifford",
     age: 44,
     testName: "Respiratory Test",
     diagnosis: "Cough",
-    biochemistry: "Normal",
-    vitals: "Normal",
+    biochemistry: "Inorganic phosphorous: 3-4.5 mg/dL ",
+    vitals: "Respiration rate ",
     testDate: "19-Jan-2024",
     reports: "D962",
   },
   {
-    id: 8,
+    id: 4250,
     patientName: "Rossini Frances",
     age: 36,
     testName: "Blood Test",
     diagnosis: "Headache",
-    biochemistry: "Normal",
-    vitals: "Stable",
+    biochemistry: "Glucose:70–99 mg/dL",
+    vitals: "Pulse rate",
     testDate: "16-April-2024",
     reports: "D471",
   },
   {
-    id: 9,
+    id: 9812,
     patientName: "Harvey Roxie",
     age: 65,
     testName: "Blood Test",
     diagnosis: "Headache",
-    biochemistry: "Normal",
-    vitals: "Stable",
+    biochemistry: "Glucose:70–99 mg/dL",
+    vitals: "Body temperature",
     testDate: "18-Feb-2024",
     reports: "D850",
   },
@@ -181,7 +182,10 @@ const handleDownloadReport = (row) => {
   doc.setFontSize(20);
   doc.text("Lab Report", 105, 15, { align: "center" });
   doc.setFontSize(10);
-  doc.text("Harley Lab", 190, 10, { align: "right", text: "blue" });
+  doc.text("Harley Street Lab Services", 200, 10, {
+    align: "right",
+    text: "blue",
+  });
   doc.setFontSize(12);
   doc.text(`Patient Name: ${row.patientName}`, 20, 30);
   doc.text(`Age: ${row.age}`, 20, 40);
@@ -194,31 +198,6 @@ const handleDownloadReport = (row) => {
 
   doc.save(`${row.patientName}_Report.pdf`);
 };
-
-// const handleDownloadReport = (row) => {
-//   const doc = new jsPDF();
-
-//   // Title: Lab Report
-//   doc.setFontSize(20);
-//   doc.text("Lab Report", 105, 15, { align: "center" });
-
-//   // Clinic Name: Harley Lab (top right corner)
-//   doc.setFontSize(10);
-//   doc.text("Harley Lab", 190, 10, { align: "right" });
-
-//   // Patient Details
-//   doc.setFontSize(12);
-//   doc.text(`Patient Name: ${row.patientName}`, 20, 30);
-//   doc.text(`Age: ${row.age}`, 20, 40);
-//   doc.text(`Test Name: ${row.testName}`, 20, 50);
-//   doc.text(`Diagnosis: ${row.diagnosis}`, 20, 60);
-//   doc.text(`Bio-chemistry: ${row.biochemistry}`, 20, 70);
-//   doc.text(`Vitals: ${row.vitals}`, 20, 80);
-//   doc.text(`Test Date: ${row.testDate}`, 20, 90);
-//   doc.text(`Report Code: ${row.reports}`, 20, 100);
-
-//   doc.save(`${row.patientName}_Report.pdf`);
-// };
 
 export default function DisplayPatientsTable() {
   const [rowSelectionModel, setRowSelectionModel] = React.useState([]);
@@ -246,6 +225,7 @@ export default function DisplayPatientsTable() {
     setSearchTerm(searchValue);
     const filteredData = rows.filter((row) => {
       return (
+        row.id.toString().toLowerCase().includes(searchValue) ||
         row.patientName.toLowerCase().includes(searchValue) ||
         row.testName.toLowerCase().includes(searchValue) ||
         row.diagnosis.toLowerCase().includes(searchValue) ||
