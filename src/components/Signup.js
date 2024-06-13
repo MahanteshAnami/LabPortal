@@ -45,7 +45,7 @@ function Signup({ onSignup }) {
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
-                Username
+                Clinic Name
               </label>
               <input
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -80,7 +80,7 @@ function Signup({ onSignup }) {
                 {...register('password')}
                 placeholder="Enter your password"
               />
-              <div className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-700 cursor-pointer" onClick={togglePasswordVisibility}>
+              <div className="absolute inset-y-0 right-0 pr-3 mt-4 flex items-center text-gray-700 cursor-pointer" onClick={togglePasswordVisibility}>
                 {showPassword ? <GrFormViewHide /> : <GrFormView />}
               </div>
               {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
@@ -96,14 +96,14 @@ function Signup({ onSignup }) {
                 {...register('confirmPassword')}
                 placeholder="Confirm your password"
               />
-              <div className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-700 cursor-pointer" onClick={toggleConfirmPasswordVisibility}>
+              <div className="absolute inset-y-0 right-0 pr-3 mt-4 flex items-center text-gray-700 cursor-pointer" onClick={toggleConfirmPasswordVisibility}>
                 {showConfirmPassword ? <GrFormViewHide /> : <GrFormView />}
               </div>
               {errors.confirmPassword && <p className="text-red-500 text-xs mt-1">{errors.confirmPassword.message}</p>}
             </div>
             <div className="flex items-center justify-center">
               <button
-                className="bg-[#f0c14b] hover:bg-yellow-500 text-gray-700 font-bold py-2 px-4 rounded w-full focus:outline-none focus:shadow-outline"
+                className="font-bold px-4 focus:outline-none focus:shadow-outline w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition-colors"
                 type="submit"
               >
                 Continue
@@ -111,7 +111,7 @@ function Signup({ onSignup }) {
             </div>
             <div className="mt-4 text-center">
               <p className="text-gray-700 text-sm">
-                Already have an account? <Link to="/" className="text-blue-500 hover:text-blue-700">Sign In</Link>
+                Already have an account? <Link to="/" className="text-blue-500 hover:text-blue-700 font-bold">Sign In</Link>
               </p>
             </div>
           </form>

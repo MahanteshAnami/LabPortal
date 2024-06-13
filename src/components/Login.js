@@ -1,92 +1,103 @@
-// // import React from 'react';
-// // import { useForm } from 'react-hook-form';
-// // import { zodResolver } from '@hookform/resolvers/zod';
-// // import * as z from 'zod';
-// // import { Link } from 'react-router-dom';
-// // import { useHistory } from 'react-router-dom';
+// import React from 'react';
+// import { useForm } from 'react-hook-form';
+// import { zodResolver } from '@hookform/resolvers/zod';
+// import * as z from 'zod';
+// import { Link } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 
-// // // Validation schema for login
-// // const loginSchema = z.object({
-// //   username: z.string().min(1, 'Username is required'),
-// //   password: z.string().min(6, 'Password must be at least 6 characters'),
-// // });
+// // Validation schema for login
+// const loginSchema = z.object({
+//   username: z.string().min(1, 'Username is required'),
+//   password: z.string().min(6, 'Password must be at least 6 characters'),
+// });
 
-// // function Login({ onLogin }) {
-// //   const { register, handleSubmit, formState: { errors } } = useForm({
-// //     resolver: zodResolver(loginSchema),
-// //   });
+// function Login({ onLogin }) {
+//   const { register, handleSubmit, formState: { errors } } = useForm({
+//     resolver: zodResolver(loginSchema),
+//   });
 
-// //   const onSubmit = (data) => {
-// //     onLogin(data);
-// //   };
+//   const onSubmit = (data) => {
+//     onLogin(data);
+//   };
 
-// //   return (
-// //     <div className="bg-cover bg-center min-h-screen flex flex-col justify-center items-center" style={{ backgroundImage: "url('/bg-1.jpg')" }}>
-// //       <div className="bg-white bg-opacity-75 p-8 rounded shadow-md w-full max-w-sm">
-// //         <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
-// //         <form onSubmit={handleSubmit(onSubmit)}>
-// //           <div className="mb-4">
-// //             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
-// //               Username
-// //             </label>
-// //             <input
-// //               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-// //               id="username"
-// //               type="text"
-// //               {...register('username')}
-// //               placeholder="Enter your username"
-// //             />
-// //             {errors.username && <p className="text-red-500 text-xs mt-1">{errors.username.message}</p>}
-// //           </div>
-// //           <div className="mb-6">
-// //             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
-// //               Password
-// //             </label>
-// //             <input
-// //               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-// //               id="password"
-// //               type="password"
-// //               {...register('password')}
-// //               placeholder="Enter your password"
-// //             />
-// //             {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
-// //           </div>
-// //           <div className="flex items-center justify-center">
-// //             <button
-// //               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full focus:outline-none focus:shadow-outline"
-// //               type="submit"
-// //             >
-// //               Log In
-// //             </button>
-// //           </div>
-// //           <div className="mt-4 text-center">
-// //             <p className="text-gray-700 text-sm">
-// //               New here? <Link to="/signup" className="text-blue-500 hover:text-blue-700">Create an account here</Link>.
-// //             </p>
-// //           </div>
-// //         </form>
-// //       </div>
-// //     </div>
-// //   );
-// // }
+//   return (
+//     <div className="bg-cover bg-center min-h-screen flex flex-col justify-center items-center" style={{ backgroundImage: "url('/bg-1.jpg')" }}>
+//       <div className="bg-white bg-opacity-75 p-8 rounded shadow-md w-full max-w-sm">
+//         <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
+//         <form onSubmit={handleSubmit(onSubmit)}>
+//           <div className="mb-4">
+//             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
+//               Username
+//             </label>
+//             <input
+//               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+//               id="username"
+//               type="text"
+//               {...register('username')}
+//               placeholder="Enter your username"
+//             />
+//             {errors.username && <p className="text-red-500 text-xs mt-1">{errors.username.message}</p>}
+//           </div>
+//           <div className="mb-6">
+//             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+//               Password
+//             </label>
+//             <input
+//               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+//               id="password"
+//               type="password"
+//               {...register('password')}
+//               placeholder="Enter your password"
+//             />
+//             {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
+//           </div>
+//           <div className="flex items-center justify-center">
+//             <button
+//               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full focus:outline-none focus:shadow-outline"
+//               type="submit"
+//             >
+//               Log In
+//             </button>
+//           </div>
+//           <div className="mt-4 text-center">
+//             <p className="text-gray-700 text-sm">
+//               New here? <Link to="/signup" className="text-blue-500 hover:text-blue-700">Create an account here</Link>.
+//             </p>
+//           </div>
+//         </form>
+//       </div>
+//     </div>
+//   );
+// }
 
-// // export default Login;
-// // src/Login.js
+// export default Login;
 
 
 
 
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { GrFormView, GrFormViewHide } from "react-icons/gr";
+
+// Validation schema for login
+const loginSchema = z.object({
+  username: z.string().min(1, 'Username is required'),
+  password: z.string().min(6, 'Password must be at least 6 characters'),
+});
 
 const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: zodResolver(loginSchema),
+  });
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-
+  const handleLogin = (data) => {
+    const { username, password } = data;
     const storedUser = localStorage.getItem("username");
     const storedPass = localStorage.getItem("password");
 
@@ -97,41 +108,51 @@ const Login = () => {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+
   return (
-    <div className="flex items-center justify-center h-[calc(100vh-85px)]">
-      <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6 text-center hover:font-extrabold">
-          Login
-        </h2>
-        <form onSubmit={handleLogin}>
+    <div className="min-h-screen flex items-center justify-center bg-cover" style={{ backgroundImage: "url('/bg-1.jpg')" }}>
+      <div className="bg-white bg-opacity-75 p-8 rounded shadow-md w-full max-w-md">
+        <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
+        <form onSubmit={handleSubmit(handleLogin)}>
+          {/* Username Input */}
           <div className="mb-4">
-            <label className="block text-gray-700 font-semibold mb-2 hover:font-bold">
-              Clinic Name:
-            </label>
+            <label className="block text-gray-700 font-semibold mb-2">Clinic Name:</label>
             <input
               type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              {...register('username')}
               className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
+            {errors.username && <p className="text-red-500 text-xs mt-1">{errors.username.message}</p>}
           </div>
-          <div className="mb-6">
-            <label className="block text-gray-700 font-semibold mb-2 hover:font-bold">
-              Password:
-            </label>
+          {/* Password Input */}
+          <div className="mb-6 relative">
+            <label className="block text-gray-700 font-semibold mb-2">Password:</label>
             <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              type={passwordVisible ? "text" : "password"}
+              {...register('password')}
               className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
+            <div className="absolute inset-y-0 right-0 pr-3 mt-8 flex items-center text-gray-700 cursor-pointer" onClick={togglePasswordVisibility}>
+              {passwordVisible ? <GrFormViewHide /> : <GrFormView />}
+            </div>
+            {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
           </div>
+          {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition-colors"
+            className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-md transition-colors"
           >
             Login
           </button>
+          {/* Signup Link */}
+          <div className="mt-4 text-center">
+            <p className="text-gray-700 text-sm">
+              New here? <Link to="/signup" className="text-blue-500 hover:text-blue-700 font-bold">Create an account here</Link>.
+            </p>
+          </div>
         </form>
       </div>
     </div>
@@ -139,13 +160,3 @@ const Login = () => {
 };
 
 export default Login;
-
-
-
-
-
-
-
-
-
-

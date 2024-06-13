@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./Layout/Layout";
-import LayoutWithoutFooter from "./Layout/LayoutWithoutFooter.js";
+import LayoutWithAnotherHeader from "./Layout/LayoutWithAnotherHeader.js";
 // import SuspenseWrapper from "./Layout/SuspenseWrapper";
 // import PrivateRoute from "./Store/reducers/Auth/PrivateRoute.jsx";
 
@@ -11,7 +11,7 @@ const DisplayPatientsTable = lazy(() =>
 const AboutUs = lazy(() => import("./components/AboutUs/AboutUs.js"));
 const ContactUs = lazy(() => import("./components/ContactUs/ContactUs.js"));
 // const Header = lazy(() => import("./components/Header/Header"));
-// const Signup = lazy(() => import("./components/Signup"));
+ const Signup = lazy(() => import("./components/Signup"));
 const Login = lazy(() => import("./components/Login"));
 
 const App = () => {
@@ -39,8 +39,9 @@ const App = () => {
           <Route path="/contactus" element={<ContactUs />} />
         </Route>
 
-        <Route element={<LayoutWithoutFooter />}>
+        <Route element={<LayoutWithAnotherHeader />}>
           <Route path="/" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
         </Route>
       </Routes>
     </Suspense>
