@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
-import TextField from "@mui/material/TextField";
+// import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { IoCloseCircleSharp } from "react-icons/io5";
 import { AiOutlineDownload } from "react-icons/ai";
@@ -14,67 +14,62 @@ const columns = [
     field: "id",
     headerName: "Patient ID",
     width: 100,
-    headerClassName: "font-semibold text-lg hover:font-bold",
+    headerClassName: "font-bold text-lg hover:text-2xl",
   },
   {
     field: "patientName",
     headerName: "Patient Name",
     type: "text",
     width: 150,
-    headerClassName: "font-semibold text-lg hover:font-bold",
+    headerClassName: "font-bold text-lg hover:text-2xl",
   },
   {
     field: "age",
     headerName: "Age",
     type: "number",
     width: 100,
-    headerClassName: "font-semibold text-lg hover:font-bold",
-    flexGrow: 1,
+    headerClassName: "font-bold text-lg hover:text-2xl",
   },
   {
     field: "testName",
     headerName: "Test Name",
     type: "text",
     width: 150,
-    headerClassName: "font-semibold text-lg hover:font-bold",
+    headerClassName: "font-bold text-lg hover:text-2xl",
   },
   {
     field: "diagnosis",
     headerName: "Diagnosis",
     width: 150,
-    headerClassName: "font-semibold text-lg hover:font-bold",
+    headerClassName: "font-bold text-lg hover:text-2xl",
   },
   {
     field: "biochemistry",
     headerName: "Bio-chemistry",
     width: 150,
-    headerClassName: "font-semibold text-lg hover:font-bold",
+    headerClassName: "font-bold text-lg hover:text-2xl",
   },
   {
     field: "vitals",
     headerName: "Vitals",
     width: 150,
-    headerClassName: "font-semibold text-lg hover:font-bold",
+    headerClassName: "font-bold text-lg hover:text-2xl",
   },
   {
     field: "testDate",
     headerName: "Test Date",
     width: 150,
-    headerClassName: "font-semibold text-lg hover:font-bold",
+    headerClassName: "font-bold text-lg hover:text-2xl",
   },
   {
     field: "reports",
     headerName: "Reports",
     width: 150,
-    headerClassName: "font-semibold text-lg hover:font-bold",
+    headerClassName: "font-bold text-lg hover:text-2xl",
     renderCell: (params) => (
-      <Button
-        variant="contained"
-        startIcon={<AiOutlineDownload />}
-        onClick={() => handleDownloadReport(params.row)}
-      >
-        Download
-      </Button>
+      <div className="flex items-center justify-center">
+        <AiOutlineDownload className="text-blue-500 hover:text-blue-700 cursor-pointer text-2xl font-bold mt-4" />
+      </div>
     ),
   },
 ];
@@ -183,17 +178,47 @@ const rows = [
 
 const handleDownloadReport = (row) => {
   const doc = new jsPDF();
-  doc.text("Patient's Report", 20, 10);
-  doc.text(`Patient Name: ${row.patientName}`, 20, 20);
-  doc.text(`Age: ${row.age}`, 20, 30);
-  doc.text(`Test Name: ${row.testName}`, 20, 40);
-  doc.text(`Diagnosis: ${row.diagnosis}`, 20, 50);
-  doc.text(`Bio-chemistry: ${row.biochemistry}`, 20, 60);
-  doc.text(`Vitals: ${row.vitals}`, 20, 70);
-  doc.text(`Test Date: ${row.testDate}`, 20, 80);
-  doc.text(`Report Code: ${row.reports}`, 20, 90);
+  doc.setFontSize(20);
+  doc.text("Lab Report", 105, 15, { align: "center" });
+  doc.setFontSize(10);
+  doc.text("Harley Lab", 190, 10, { align: "right", text: "blue" });
+  doc.setFontSize(12);
+  doc.text(`Patient Name: ${row.patientName}`, 20, 30);
+  doc.text(`Age: ${row.age}`, 20, 40);
+  doc.text(`Test Name: ${row.testName}`, 20, 50);
+  doc.text(`Diagnosis: ${row.diagnosis}`, 20, 60);
+  doc.text(`Bio-chemistry: ${row.biochemistry}`, 20, 70);
+  doc.text(`Vitals: ${row.vitals}`, 20, 80);
+  doc.text(`Test Date: ${row.testDate}`, 20, 90);
+  doc.text(`Report Code: ${row.reports}`, 20, 100);
+
   doc.save(`${row.patientName}_Report.pdf`);
 };
+
+// const handleDownloadReport = (row) => {
+//   const doc = new jsPDF();
+
+//   // Title: Lab Report
+//   doc.setFontSize(20);
+//   doc.text("Lab Report", 105, 15, { align: "center" });
+
+//   // Clinic Name: Harley Lab (top right corner)
+//   doc.setFontSize(10);
+//   doc.text("Harley Lab", 190, 10, { align: "right" });
+
+//   // Patient Details
+//   doc.setFontSize(12);
+//   doc.text(`Patient Name: ${row.patientName}`, 20, 30);
+//   doc.text(`Age: ${row.age}`, 20, 40);
+//   doc.text(`Test Name: ${row.testName}`, 20, 50);
+//   doc.text(`Diagnosis: ${row.diagnosis}`, 20, 60);
+//   doc.text(`Bio-chemistry: ${row.biochemistry}`, 20, 70);
+//   doc.text(`Vitals: ${row.vitals}`, 20, 80);
+//   doc.text(`Test Date: ${row.testDate}`, 20, 90);
+//   doc.text(`Report Code: ${row.reports}`, 20, 100);
+
+//   doc.save(`${row.patientName}_Report.pdf`);
+// };
 
 export default function DisplayPatientsTable() {
   const [rowSelectionModel, setRowSelectionModel] = React.useState([]);
@@ -236,14 +261,13 @@ export default function DisplayPatientsTable() {
   return (
     <div className="text-center">
       <Box sx={{ height: 600, width: "100%" }} className="py-2 px-4">
-        <div className="mb-4 mx-auto w-3/6">
-          <TextField
-            label="Search"
-            variant="outlined"
-            fullWidth
+        <div className="mb-4 mx-auto w-full">
+          <input
+            type="text"
+            placeholder="Search"
             value={searchTerm}
             onChange={handleSearch}
-            className="my-2 border border-gray-300 rounded-full focus:ring focus:ring-black"
+            className=" w-2/4 my-4 border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring focus:ring-gray "
           />
           {filteredRows.length === 0 && (
             <Typography
@@ -273,10 +297,6 @@ export default function DisplayPatientsTable() {
           onRowClick={handleRowClick}
           className="bg-gray-50 text-md py-1 shadow-md shadow-blue-300 hover:shadow-xl hover:shadow-blue-100"
           getRowClassName={(params) => "hover:bg-gray-100"}
-          classes={{
-            columnHeader: "hover:font-bold font-semibold hover:text-xl",
-            columnHeaderTitle: "font-semibold  hover:font-bold",
-          }}
         />
         <Modal
           open={open}
@@ -300,14 +320,9 @@ export default function DisplayPatientsTable() {
             }}
           >
             <div className="flex justify-between">
-              <Typography
-                id="modal-modal-title"
-                variant="h6"
-                component="h2"
-                className="font-bold my-2 text-3xl hover:text-4xl"
-              >
+              <h2 className="font-bold my-2 text-2xl hover:text-3xl">
                 Patient's Information
-              </Typography>
+              </h2>
               <span
                 onClick={handleClose}
                 className="cursor-pointer text-gray-500 hover:text-gray-900 absolute top-4 right-5"
@@ -316,61 +331,29 @@ export default function DisplayPatientsTable() {
               </span>
             </div>
             {selectedRow && (
-              <div className="text-lg">
-                <Typography
-                  id="modal-modal-description"
-                  sx={{ mt: 2 }}
-                  className="hover:font-bold hover:text-xl"
-                >
+              <div className="text-lg font-bol">
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                   <strong>Patient Name:</strong> {selectedRow.patientName}
                 </Typography>
-                <Typography
-                  id="modal-modal-description"
-                  sx={{ mt: 2 }}
-                  className="hover:font-bold hover:text-xl"
-                >
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                   <strong>Age:</strong> {selectedRow.age}
                 </Typography>
-                <Typography
-                  id="modal-modal-description"
-                  sx={{ mt: 2 }}
-                  className="hover:font-bold hover:text-xl"
-                >
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                   <strong>Test Name:</strong> {selectedRow.testName}
                 </Typography>
-                <Typography
-                  id="modal-modal-description"
-                  sx={{ mt: 2 }}
-                  className="hover:font-bold hover:text-xl"
-                >
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                   <strong>Diagnosis:</strong> {selectedRow.diagnosis}
                 </Typography>
-                <Typography
-                  id="modal-modal-description"
-                  sx={{ mt: 2 }}
-                  className="hover:font-bold hover:text-xl"
-                >
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                   <strong>Bio-chemistry:</strong> {selectedRow.biochemistry}
                 </Typography>
-                <Typography
-                  id="modal-modal-description"
-                  sx={{ mt: 2 }}
-                  className="hover:font-bold hover:text-xl"
-                >
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                   <strong>Vitals:</strong> {selectedRow.vitals}
                 </Typography>
-                <Typography
-                  id="modal-modal-description"
-                  sx={{ mt: 2 }}
-                  className="hover:font-bold hover:text-xl"
-                >
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                   <strong>Test Date:</strong> {selectedRow.testDate}
                 </Typography>
-                <Typography
-                  id="modal-modal-description"
-                  sx={{ mt: 2 }}
-                  className="hover:font-bold hover:text-xl"
-                >
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                   <strong>Report Code:</strong> {selectedRow.reports}
                 </Typography>
                 <Button
@@ -378,7 +361,6 @@ export default function DisplayPatientsTable() {
                   color="primary"
                   onClick={() => handleDownloadReport(selectedRow)}
                   sx={{ mt: 2 }}
-                  className="hover:bg-blue-700 hover:text-lg"
                 >
                   Download PDF
                 </Button>
