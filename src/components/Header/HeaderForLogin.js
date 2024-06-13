@@ -20,13 +20,13 @@ const Header = () => {
         <div className="flex space-x-8 text-xl">
           <Link
             to="/"
-            className="text-white  hover:text-2xl hover:text-gray-300"
+            className="text-white   hover:text-gray-300"
           >
             About Us
           </Link>
           <Link
             to="/"
-            className="text-white  hover:text-2xl hover:text-gray-300"
+            className="text-white   hover:text-gray-300"
           >
             Contact Us
           </Link>

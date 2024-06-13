@@ -71,7 +71,7 @@ function Footer() {
         </div>
         <div className="footer-contact-info text-right col-span-3">
           <ul>
-            <li>Support</li>
+            <li className="mx-4 text-xl font-bold">Support</li>
             <li>
               {" "}
               <p>

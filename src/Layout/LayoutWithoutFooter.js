@@ -1,5 +1,6 @@
 import React, { Suspense } from "react";
 import HeaderForLogin from "../components/Header/HeaderForLogin";
+import Footer from "../components/Footer/Footer"
 
 import { Outlet } from "react-router-dom";
 
@@ -14,6 +15,7 @@ function Layout() {
         >
           <Outlet />
         </div>
+        <Footer/>
       </Suspense>
     </>
   );
