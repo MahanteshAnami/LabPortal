@@ -131,6 +131,7 @@ export default function PatientDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const patient = rows.find((row) => row.id.toString() === id);
+  const [showTooltip, setShowTooltip] = React.useState(false);
 
   if (!patient) {
     return <h4>Patient not found</h4>;
@@ -138,16 +139,23 @@ export default function PatientDetails() {
 
   return (
     <div className="flex items-center justify-center h-[85vh]">
-      <div className="w-full max-w-4xl bg-white rounded-lg shadow-md p-6 relative ">
+      <div className="w-full max-w-5xl bg-white rounded-lg shadow-md p-6 relative ">
         <div className="flex items-center mb-4">
           <IoIosArrowRoundBack
             size={28}
             className="cursor-pointer text-gray-500 hover:text-gray-900 mr-2"
             onClick={() => navigate(-1)}
+            onMouseEnter={() => setShowTooltip(true)}
+            onMouseLeave={() => setShowTooltip(false)}
           />
-          <h2 className="text-3xl font-bold">Patient's Information</h2>
+           {showTooltip && (
+            <div className="absolute bg-gray-500 text-white text-xs py-1 px-2 rounded-md mt-10">
+              Patient's Table
+            </div>
+          )}
         </div>
         <div className="text-xl">
+        <h2 className="text-3xl font-bold mb-6">Patient's Information</h2>
           <p className="mb-4">
             <strong>Patient Name:</strong> {patient.patientName}
           </p>
