@@ -102,7 +102,7 @@ const Login = () => {
     const storedPass = localStorage.getItem("password");
 
     if (username.trim() === storedUser && password.trim() === storedPass) {
-      navigate("/display-patients-table");
+      navigate("/patientstable");
     } else {
       alert("Invalid username or password");
     }

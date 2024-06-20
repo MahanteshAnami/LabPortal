@@ -5,13 +5,16 @@ import LayoutWithAnotherHeader from "./Layout/LayoutWithAnotherHeader.js";
 // import SuspenseWrapper from "./Layout/SuspenseWrapper";
 // import PrivateRoute from "./Store/reducers/Auth/PrivateRoute.jsx";
 
-const DisplayPatientsTable = lazy(() =>
-  import("./components/DisplayPatientsTable")
+const PatientsTable = lazy(() =>
+  import("./components/Patient/PatientsTable.js")
+);
+const PatientDetails = lazy(() =>
+  import("./components/Patient/PatientDetails.js")
 );
 const AboutUs = lazy(() => import("./components/AboutUs/AboutUs.js"));
 const ContactUs = lazy(() => import("./components/ContactUs/ContactUs.js"));
 // const Header = lazy(() => import("./components/Header/Header"));
- const Signup = lazy(() => import("./components/Signup"));
+const Signup = lazy(() => import("./components/Signup"));
 const Login = lazy(() => import("./components/Login"));
 
 const App = () => {
@@ -31,12 +34,15 @@ const App = () => {
     <Suspense fallback={<div>Loading...</div>}>
       <Routes>
         <Route element={<Layout />}>
-          <Route
+          {/* <Route
             path="/display-patients-table"
             element={<DisplayPatientsTable />}
-          />
+          /> */}
+          <Route path="/patientstable" element={<PatientsTable />} />
+          <Route path="/patientdetails/:id" element={<PatientDetails />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/contactus" element={<ContactUs />} />
+          <Route path="*" element={<h2>Page Not Found</h2>} />
         </Route>
 
         <Route element={<LayoutWithAnotherHeader />}>
