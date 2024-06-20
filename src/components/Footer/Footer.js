@@ -92,7 +92,7 @@ function Footer() {
       </div>
       <div className="text-center mt-8">
         <p className="text-gray-600">
-          &copy; 2024 Harley Street Pathology Services - All rights reserved
+          &copy; 2024 Harley Street Labs Services - All rights reserved
         </p>
       </div>
     </footer>
