@@ -139,7 +139,7 @@ export default function PatientDetails() {
 
   return (
     <div className="flex items-center justify-center h-[85vh]">
-      <div className="w-full max-w-5xl bg-white rounded-lg shadow-md p-6 relative ">
+      <div className="w-full max-w-3xl bg-white rounded-lg shadow-md p-6 relative ">
         <div className="flex items-center mb-4">
           <IoIosArrowRoundBack
             size={28}
@@ -150,7 +150,7 @@ export default function PatientDetails() {
           />
            {showTooltip && (
             <div className="absolute bg-gray-500 text-white text-xs py-1 px-2 rounded-md mt-10">
-              Patient's Table
+             Back to Patient's Table
             </div>
           )}
         </div>

@@ -112,13 +112,13 @@ const columns = [
     headerName: "Patient ID",
     type: "text",
     width: 120,
-    headerClassName: "font-bold text-lg hover:text-2xl text-start",
+    headerClassName: "font-bold text-lg hover:text-2xl text-start ",
   },
   {
     field: "patientName",
     headerName: "Patient Name",
     type: "text",
-    width: 200,
+    width: 250,
     headerClassName: "font-bold text-lg hover:text-2xl",
   },
   {
@@ -131,7 +131,7 @@ const columns = [
   {
     field: "diagnosis",
     headerName: "Diagnosis",
-    width: 150,
+    width: 200,
     headerClassName: "font-bold text-lg hover:text-2xl",
   },
   {
@@ -144,12 +144,12 @@ const columns = [
     field: "reports",
     headerName: "Reports",
     width: 100,
-    headerClassName: "font-bold text-lg hover:text-2xl",
+    headerClassName: "font-bold text-lg hover:text-2xl ",
     renderCell: (params) => (
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center text-blue-500 hover:text-blue-700">
         <span>{params.value}</span>
         <AiOutlineDownload
-          className="text-blue-500 hover:text-blue-700 cursor-pointer text-2xl font-bold ml-2"
+          className=" cursor-pointer text-2xl font-bold ml-2"
           onClick={() => handleDownloadReport(params.row)}
         />
       </div>
@@ -217,6 +217,11 @@ export default function PatientsTable() {
     setFilteredRows(filteredData);
   };
 
+  const handleReset = () => {
+    setSearchTerm({});
+    setFilteredRows(rows);
+  };
+
   return (
     <div className="py-2 px-4 grid grid-cols-12 gap-4">
       <div className="mx-auto w-full col-span-4 bg-gray-100 p-4 rounded-lg shadow-md mt-4">
@@ -230,6 +235,7 @@ export default function PatientsTable() {
               type="text"
               name="id"
               placeholder="Patient ID"
+              value={searchTerm.id || ""}
               onChange={handleSearchTermChange}
               className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-gray-200"
             />
@@ -242,6 +248,7 @@ export default function PatientsTable() {
               type="text"
               name="patientName"
               placeholder="Patient Name"
+              value={searchTerm.patientName || ""}
               onChange={handleSearchTermChange}
               className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-gray-200"
             />
@@ -253,16 +260,25 @@ export default function PatientsTable() {
             <input
               type="date"
               name="testDate"
+              value={searchTerm.testDate || ""}
               onChange={handleSearchTermChange}
               className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-gray-200"
             />
           </div>
-          <button
-            onClick={handleSearch}
-            className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300"
-          >
-            Search
-          </button>
+          <div className="flex space-x-2">
+            <button
+              onClick={handleSearch}
+              className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300"
+            >
+              Search
+            </button>
+            <button
+              onClick={handleReset}
+              className="w-full bg-gray-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300"
+            >
+              Reset
+            </button>
+          </div>
           {filteredRows.length === 0 && (
             <div className="mt-2 text-red-800 font-bold text-2xl">
               No matching records found
@@ -285,7 +301,7 @@ export default function PatientsTable() {
           onRowSelectionModelChange={handleRowSelection}
           rowSelectionModel={rowSelectionModel}
           onRowClick={handleRowClick}
-          className="bg-gray-50 text-md py-1"
+          className="bg-gray-50 text-md py-1 pl-2"
           getRowClassName={(params) => "hover:bg-gray-100"}
         />
       </div>
