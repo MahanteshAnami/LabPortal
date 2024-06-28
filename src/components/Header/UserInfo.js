@@ -1,18 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FaUser } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 const UserInfo = () => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const navigate = useNavigate();
+  const dropdownRef = useRef(null);
 
   const handleLogout = () => {
     // Perform logout logic here, e.g., clearing user data, etc.
     navigate("/");
   };
 
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setDropdownVisible(false);
+    }
+  };
+
+  useEffect(() => {
+    if (dropdownVisible) {
+      document.addEventListener("click", handleClickOutside);
+    } else {
+      document.removeEventListener("click", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [dropdownVisible]);
+
   return (
-    <div className="relative flex items-center space-x-4 pl-10">
+    <div className="relative flex items-center space-x-4 pl-10" ref={dropdownRef}>
       <span
         className="text-white text-2xl border border-white rounded-full text-center p-2 cursor-pointer"
         onClick={() => setDropdownVisible(!dropdownVisible)}
@@ -37,3 +56,15 @@ const UserInfo = () => {
 };
 
 export default UserInfo;
+// Explanation:
+// useRef Hook: The dropdownRef is created using useRef to reference the dropdown element.
+// handleClickOutside Function: This function checks if the click event happened outside the dropdown element. If it did, it sets dropdownVisible to false.
+// useEffect Hook: The useEffect hook adds the click event listener to the document when the dropdown is visible and removes it when the dropdown is not visible or when the component unmounts.
+// Ref Attribute: The ref={dropdownRef} attribute is added to the main container div so that clicks can be detected outside of this element.
+
+
+
+
+
+
+

@@ -13,6 +13,13 @@ if (!localStorage.getItem("username")) {
 if (!localStorage.getItem("password")) {
   localStorage.setItem("password", "lab123");
 }
+
+if (!localStorage.getItem("accessToken")) {
+  localStorage.setItem("accessToken", "abc");
+}
+
+
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
