@@ -39,7 +39,7 @@ const UserInfo = () => {
         <FaUser />
       </span>
       <div className="bg-transparent rounded-lg py-3 text-white font-semibold cursor-not-allowed w-48 text-center text-lg pr-11">
-        Ferrara Clifford
+        Harley Streets
       </div>
       {dropdownVisible && (
         <div className="absolute top-14 right-0 bg-white shadow-lg rounded-lg py-2 w-40 z-10 font-bold">
