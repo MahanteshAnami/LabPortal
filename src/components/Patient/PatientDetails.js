@@ -13,10 +13,12 @@ const PatientDetails = () => {
   useEffect(() => {
     const fetchPatientData = async () => {
       try {
-        const clinicName = 'Harley Streets';
-        const response = await axios.get(`http://35.178.63.129:8000/patients/${clinicName}`);
+        const clinicName = "Harley Streets";
+        const response = await axios.get(
+          `http://35.178.63.129:8000/patients/${clinicName}`
+        );
         const patients = response.data;
-        const foundPatient = patients.find(p => p.mrn === mrn);
+        const foundPatient = patients.find((p) => p.mrn === mrn);
         setPatient(foundPatient);
       } catch (error) {
         console.error("Error fetching patient data:", error);

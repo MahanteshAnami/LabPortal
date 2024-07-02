@@ -1,12 +1,11 @@
-
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { AiOutlineDownload } from "react-icons/ai";
 import { jsPDF } from "jspdf";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import DatePicker from "react-datepicker";
-import 'react-datepicker/dist/react-datepicker.css';
+import "react-datepicker/dist/react-datepicker.css";
 
 const handleDownloadReport = (row) => {
   const doc = new jsPDF();
@@ -37,7 +36,7 @@ export default function PatientsTable() {
   const [rowSelectionModel, setRowSelectionModel] = useState([]);
   const [searchTerm, setSearchTerm] = useState({});
   const [rows, setRows] = useState([]);
-  const [filteredRows, setFilteredRows] =useState([]);
+  const [filteredRows, setFilteredRows] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -46,8 +45,10 @@ export default function PatientsTable() {
         // Set your loading state true if needed
 
         // Replace 'clinic_name' with the actual clinic name you want to use
-        const clinicName = 'Harley Streets';
-        const response = await axios.get(`http://35.178.63.129:8000/patients/${clinicName}`);
+        const clinicName = "Harley Streets";
+        const response = await axios.get(
+          `http://35.178.63.129:8000/patients/${clinicName}`
+        );
         console.log("response", response.data);
         setRows(response.data);
         setFilteredRows(response.data);
@@ -93,7 +94,9 @@ export default function PatientsTable() {
         : true;
       return (
         row.mrn.toLowerCase().includes((searchTerm.mrn || "").toLowerCase()) &&
-        row.patient_name.toLowerCase().includes((searchTerm.patient_name || "").toLowerCase()) &&
+        row.patient_name
+          .toLowerCase()
+          .includes((searchTerm.patient_name || "").toLowerCase()) &&
         testDateMatches
       );
     });
@@ -112,14 +115,37 @@ export default function PatientsTable() {
     });
   };
 
-
   const columns = [
-    { field: 'mrn', headerName: 'Patient ID', width: 200, headerClassName: "font-bold text-lg hover:text-2xl" },
-    { field: 'patient_name', headerName: 'Patient Name', width: 250, headerClassName: "font-bold text-lg hover:text-2xl" },
-    { field: 'test_name', headerName: 'Test Name', width: 200, headerClassName: "font-bold text-lg hover:text-2xl" },
-    { field: 'test_date', headerName: 'Test Date', width: 200, headerClassName: "font-bold text-lg hover:text-2xl" },
     {
-      field: 'patient_identifier_list', headerName: 'Details', width: 150, headerClassName: "font-bold text-lg hover:text-2xl", renderCell: (params) => (
+      field: "mrn",
+      headerName: "Patient ID",
+      width: 200,
+      headerClassName: "font-bold text-lg hover:text-2xl",
+    },
+    {
+      field: "patient_name",
+      headerName: "Patient Name",
+      width: 250,
+      headerClassName: "font-bold text-lg hover:text-2xl",
+    },
+    {
+      field: "test_name",
+      headerName: "Test Name",
+      width: 200,
+      headerClassName: "font-bold text-lg hover:text-2xl",
+    },
+    {
+      field: "test_date",
+      headerName: "Test Date",
+      width: 200,
+      headerClassName: "font-bold text-lg hover:text-2xl",
+    },
+    {
+      field: "patient_identifier_list",
+      headerName: "Details",
+      width: 150,
+      headerClassName: "font-bold text-lg hover:text-2xl",
+      renderCell: (params) => (
         <div className="flex items-center text-blue-500 hover:text-blue-700 text-left">
           <span className="text-left">{params.value}</span>
           <AiOutlineDownload
@@ -127,10 +153,9 @@ export default function PatientsTable() {
             onClick={() => handleDownloadReport(params.row)}
           />
         </div>
-      )
-    }
+      ),
+    },
   ];
-  
 
   return (
     <div className="py-2 px-4 grid grid-cols-12 gap-4">
@@ -138,7 +163,9 @@ export default function PatientsTable() {
         <h2 className="font-bold text-xl mb-4">Results Search</h2>
         <div className="space-y-4">
           <div className="flex flex-col">
-            <label htmlFor="mrn" className="font-medium text-lg">MRN</label>
+            <label htmlFor="mrn" className="font-medium text-lg">
+              MRN
+            </label>
             <input
               type="text"
               name="mrn"
@@ -149,7 +176,9 @@ export default function PatientsTable() {
             />
           </div>
           <div className="flex flex-col">
-            <label htmlFor="patient_name" className="font-medium text-lg">Patient Name</label>
+            <label htmlFor="patient_name" className="font-medium text-lg">
+              Patient Name
+            </label>
             <input
               type="text"
               name="patient_name"
@@ -160,7 +189,9 @@ export default function PatientsTable() {
             />
           </div>
           <div className="flex flex-col">
-            <label htmlFor="test_date" className="font-medium text-lg">Test Date</label>
+            <label htmlFor="test_date" className="font-medium text-lg">
+              Test Date
+            </label>
             {/* <input
               type="date"
               name="test_date"
@@ -169,13 +200,13 @@ export default function PatientsTable() {
               onChange={handleSearchTermChange}
               className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-gray-200"
             /> */}
-             <DatePicker
-            selected={searchTerm.test_date}
-            onChange={handleDateChange}
-            dateFormat="yyyy-MM-dd"
-            placeholderText="yyyy-mm-dd"
-            className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-gray-200 w-full"
-          />
+            <DatePicker
+              selected={searchTerm.test_date}
+              onChange={handleDateChange}
+              dateFormat="yyyy-MM-dd"
+              placeholderText="yyyy-mm-dd"
+              className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-gray-200 w-full"
+            />
           </div>
           <div className="flex space-x-2">
             <button
