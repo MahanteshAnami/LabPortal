@@ -1,36 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { AiOutlineDownload } from "react-icons/ai";
-import { jsPDF } from "jspdf";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
-const handleDownloadReport = (row) => {
-  const doc = new jsPDF();
-  doc.setFontSize(20);
-  doc.text("Lab Report", 105, 15, { align: "center" });
-  doc.setFontSize(10);
-  doc.text("Harley Street Lab Services", 200, 10, {
-    align: "right",
-    text: "blue",
-  });
-  doc.setFontSize(12);
-  doc.text(`Patient Name: ${row.patient_name}`, 20, 30);
-  doc.text(`Date of Birth: ${row.date_of_birth}`, 20, 40);
-  doc.text(`Sex: ${row.sex}`, 20, 50);
-  doc.text(`Race: ${row.race}`, 20, 60);
-  doc.text(`Address: ${row.address}`, 20, 70);
-  doc.text(`Phone Number: ${row.phone_number}`, 20, 80);
-  doc.text(`SSN: ${row.ssn}`, 20, 90);
-  doc.text(`Ethnic Group: ${row.ethnic_group}`, 20, 100);
-  doc.text(`Death Indicator: ${row.death_indicator}`, 20, 110);
-  doc.text(`Test Name: ${row.test_name}`, 20, 120);
-  doc.text(`Test Date: ${row.test_date}`, 20, 130);
-
-  doc.save(`${row.patient_name}_Report.pdf`);
-};
 
 export default function PatientsTable() {
   const [rowSelectionModel, setRowSelectionModel] = useState([]);
@@ -54,16 +28,12 @@ export default function PatientsTable() {
         setFilteredRows(response.data);
       } catch (error) {
         if (error.response) {
-          // The request was made and the server responded with a status code
-          // that falls out of the range of 2xx
           console.error("Server responded with an error:", error.response.data);
           console.error("Status code:", error.response.status);
           console.error("Headers:", error.response.headers);
         } else if (error.request) {
-          // The request was made but no response was received
           console.error("No response received:", error.request);
         } else {
-          // Something happened in setting up the request that triggered an Error
           console.error("Error in setting up the request:", error.message);
         }
         console.error("Config:", error.config);
@@ -90,13 +60,12 @@ export default function PatientsTable() {
   const handleSearch = () => {
     const filteredData = rows.filter((row) => {
       const testDateMatches = searchTerm.test_date
-        ? row.test_date === searchTerm.test_date
+        ? new Date(row.test_date).toLocaleDateString() ===
+          searchTerm.test_date.toLocaleDateString()
         : true;
       return (
-        row.mrn.toLowerCase().includes((searchTerm.mrn || "").toLowerCase()) &&
-        row.patient_name
-          .toLowerCase()
-          .includes((searchTerm.patient_name || "").toLowerCase()) &&
+        (searchTerm.mrn ? row.mrn.toLowerCase().includes(searchTerm.mrn.toLowerCase()) : true) &&
+        (searchTerm.patient_name ? row.patient_name.toLowerCase().includes(searchTerm.patient_name.toLowerCase()) : true) &&
         testDateMatches
       );
     });
@@ -108,10 +77,12 @@ export default function PatientsTable() {
     setSearchTerm({});
     setFilteredRows(rows);
   };
+
   const handleDateChange = (date) => {
+    const selectedDate = date ? new Date(date.setHours(0, 0, 0, 0)) : null;
     setSearchTerm({
       ...searchTerm,
-      test_date: date,
+      test_date: selectedDate,
     });
   };
 
@@ -148,10 +119,7 @@ export default function PatientsTable() {
       renderCell: (params) => (
         <div className="flex items-center text-blue-500 hover:text-blue-700 text-left">
           <span className="text-left">{params.value}</span>
-          <AiOutlineDownload
-            className="cursor-pointer text-2xl font-bold ml-2"
-            onClick={() => handleDownloadReport(params.row)}
-          />
+          <AiOutlineDownload className="cursor-pointer text-2xl font-bold ml-2" />
         </div>
       ),
     },
@@ -192,14 +160,6 @@ export default function PatientsTable() {
             <label htmlFor="test_date" className="font-medium text-lg">
               Test Date
             </label>
-            {/* <input
-              type="date"
-              name="test_date"
-                placeholder="yyyy-mm-dd"
-              // value={searchTerm.test_date || ""}
-              onChange={handleSearchTermChange}
-              className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-gray-200"
-            /> */}
             <DatePicker
               selected={searchTerm.test_date}
               onChange={handleDateChange}
