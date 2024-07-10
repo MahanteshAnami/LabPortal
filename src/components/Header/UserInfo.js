@@ -31,21 +31,18 @@ const UserInfo = () => {
   }, [dropdownVisible]);
 
   return (
-    <div
-      className="relative flex items-center space-x-4 pl-10"
-      ref={dropdownRef}
-    >
+    <div className="relative flex items-center space-x-4 pl-4 sm:pl-10" ref={dropdownRef}>
       <span
-        className="text-white text-2xl border border-white rounded-full text-center p-2 cursor-pointer"
+        className="text-white text-xl sm:text-2xl border border-white rounded-full text-center p-2 cursor-pointer"
         onClick={() => setDropdownVisible(!dropdownVisible)}
       >
         <FaUser />
       </span>
-      <div className="bg-transparent rounded-lg py-3 text-white font-semibold cursor-not-allowed w-48 text-center text-lg pr-11">
+      <div className="bg-transparent rounded-lg py-2 sm:py-3 text-white font-semibold cursor-not-allowed w-32 sm:w-48 text-center text-md sm:text-lg pr-8 sm:pr-11">
         Harley Streets
       </div>
       {dropdownVisible && (
-        <div className="absolute top-14 right-0 bg-white shadow-lg rounded-lg py-2 w-40 z-10 font-bold">
+        <div className="absolute top-12 sm:top-14 right-0 bg-white shadow-lg rounded-lg py-2 w-32 sm:w-40 z-10 font-bold">
           <button
             onClick={handleLogout}
             className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-200"

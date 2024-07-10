@@ -12,6 +12,9 @@ export default function PatientsTable() {
   const [rows, setRows] = useState([]);
   const [filteredRows, setFilteredRows] = useState([]);
   const navigate = useNavigate();
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [dob, setDob] = useState(null); // State for DOB search
 
   useEffect(() => {
     const getData = async () => {
@@ -58,16 +61,40 @@ export default function PatientsTable() {
   };
 
   const handleSearch = () => {
+    // const filteredData = rows.filter((row) => {
+    //   const testDateMatches = searchTerm.test_date
+    //     ? new Date(row.test_date).toLocaleDateString() ===
+    //       searchTerm.test_date.toLocaleDateString()
+    //     : true;
+    //   return (
+    //     (searchTerm.mrn
+    //       ? row.mrn.toLowerCase().includes(searchTerm.mrn.toLowerCase())
+    //       : true) &&
+    //     (searchTerm.patient_name
+    //       ? row.patient_name
+    //           .toLowerCase()
+    //           .includes(searchTerm.patient_name.toLowerCase())
+    //       : true) &&
+    //     testDateMatches
+    //   );
+    // });
+
     const filteredData = rows.filter((row) => {
-      const testDateMatches = searchTerm.test_date
-        ? new Date(row.test_date).toLocaleDateString() ===
-          searchTerm.test_date.toLocaleDateString()
+      const mrnMatch = searchTerm.mrn
+        ? row.mrn.toLowerCase().includes(searchTerm.mrn.toLowerCase())
         : true;
-      return (
-        (searchTerm.mrn ? row.mrn.toLowerCase().includes(searchTerm.mrn.toLowerCase()) : true) &&
-        (searchTerm.patient_name ? row.patient_name.toLowerCase().includes(searchTerm.patient_name.toLowerCase()) : true) &&
-        testDateMatches
-      );
+      const patientNameMatch = searchTerm.patient_name
+        ? row.patient_name
+            .toLowerCase()
+            .includes(searchTerm.patient_name.toLowerCase())
+        : true;
+      const testDateMatch =
+        startDate && endDate
+          ? new Date(row.test_date) >= startDate &&
+            new Date(row.test_date) <= endDate
+          : true;
+
+      return mrnMatch && patientNameMatch && testDateMatch;
     });
 
     setFilteredRows(filteredData);
@@ -76,14 +103,28 @@ export default function PatientsTable() {
   const handleReset = () => {
     setSearchTerm({});
     setFilteredRows(rows);
+    setStartDate(null);
+    setEndDate(null);
   };
 
-  const handleDateChange = (date) => {
-    const selectedDate = date ? new Date(date.setHours(0, 0, 0, 0)) : null;
-    setSearchTerm({
-      ...searchTerm,
-      test_date: selectedDate,
-    });
+  // const handleDateChange = (date) => {
+  //   const selectedDate = date ? new Date(date.setHours(0, 0, 0, 0)) : null;
+  //   setSearchTerm({
+  //     ...searchTerm,
+  //     test_date: selectedDate,
+  //   });
+  // };
+
+  const handleStartDateChange = (date) => {
+    setStartDate(date);
+  };
+
+  const handleEndDateChange = (date) => {
+    setEndDate(date);
+  };
+
+  const handleDobChange = (date) => {
+    setDob(date);
   };
 
   const columns = [
@@ -132,12 +173,12 @@ export default function PatientsTable() {
         <div className="space-y-4">
           <div className="flex flex-col">
             <label htmlFor="mrn" className="font-medium text-lg">
-              MRN
+              Patient ID
             </label>
             <input
               type="text"
               name="mrn"
-              placeholder="MRN"
+              placeholder="Patient Id"
               value={searchTerm.mrn || ""}
               onChange={handleSearchTermChange}
               className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-gray-200 w-full"
@@ -157,16 +198,66 @@ export default function PatientsTable() {
             />
           </div>
           <div className="flex flex-col">
-            <label htmlFor="test_date" className="font-medium text-lg">
-              Test Date
+            <label htmlFor="patient_name" className="font-medium text-lg">
+              Patient Date Of Birth
             </label>
             <DatePicker
-              selected={searchTerm.test_date}
-              onChange={handleDateChange}
+              selected={dob}
+              onChange={handleDobChange}
               dateFormat="yyyy-MM-dd"
               placeholderText="yyyy-mm-dd"
               className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-gray-200 w-full"
             />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="patient_name" className="font-medium text-lg">
+              Test code
+            </label>
+            <input
+              type="text"
+              name="patient_name"
+              placeholder="Test Code"
+              value={searchTerm.patient_name || ""}
+              onChange={handleSearchTermChange}
+              className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-gray-200 w-full"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label
+              htmlFor="test_date_range"
+              className="font-medium text-lg mb-2"
+            >
+              Test Date
+            </label>
+            <div className="flex space-x-4">
+              <div className="flex flex-col">
+                <label
+                  htmlFor="start_date"
+                  className="font-medium text-md mb-1"
+                >
+                  From
+                </label>
+                <DatePicker
+                  selected={startDate}
+                  onChange={handleStartDateChange}
+                  dateFormat="yyyy-MM-dd"
+                  placeholderText="yyyy-mm-dd"
+                  className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-gray-200 w-full"
+                />
+              </div>
+              <div className="flex flex-col">
+                <label htmlFor="end_date" className="font-medium text-md mb-1">
+                  To
+                </label>
+                <DatePicker
+                  selected={endDate}
+                  onChange={handleEndDateChange}
+                  dateFormat="yyyy-MM-dd"
+                  placeholderText="yyyy-mm-dd"
+                  className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-gray-200 w-full"
+                />
+              </div>
+            </div>
           </div>
           <div className="flex space-x-2">
             <button
