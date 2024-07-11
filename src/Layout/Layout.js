@@ -9,8 +9,8 @@ function Layout() {
       <Suspense fallback={"Loading..."}>
         <Header />
         <div
-          className="bg-cover bg-center min-h-screen"
-          style={{ backgroundImage: `url('/images/bg-1.jpg')` }}
+          // className="bg-cover bg-center min-h-screen "
+          // style={{ backgroundImage: `url('/images/bg1.jpg')` }}
         >
           <Outlet />
         </div>

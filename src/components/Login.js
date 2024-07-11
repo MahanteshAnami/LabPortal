@@ -113,8 +113,8 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-cover" style={{ backgroundImage: "url('/bg-1.jpg')" }}>
-      <div className="bg-white bg-opacity-75 p-8 rounded shadow-md w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center bg-cover" style={{ backgroundImage: "url('/bg1.jpg')" }}>
+      <div className="bg-white bg-opacity-80 p-8 rounded shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
         <form onSubmit={handleSubmit(handleLogin)}>
           {/* Username Input */}

@@ -61,24 +61,6 @@ export default function PatientsTable() {
   };
 
   const handleSearch = () => {
-    // const filteredData = rows.filter((row) => {
-    //   const testDateMatches = searchTerm.test_date
-    //     ? new Date(row.test_date).toLocaleDateString() ===
-    //       searchTerm.test_date.toLocaleDateString()
-    //     : true;
-    //   return (
-    //     (searchTerm.mrn
-    //       ? row.mrn.toLowerCase().includes(searchTerm.mrn.toLowerCase())
-    //       : true) &&
-    //     (searchTerm.patient_name
-    //       ? row.patient_name
-    //           .toLowerCase()
-    //           .includes(searchTerm.patient_name.toLowerCase())
-    //       : true) &&
-    //     testDateMatches
-    //   );
-    // });
-
     const filteredData = rows.filter((row) => {
       const mrnMatch = searchTerm.mrn
         ? row.mrn.toLowerCase().includes(searchTerm.mrn.toLowerCase())
@@ -88,13 +70,17 @@ export default function PatientsTable() {
             .toLowerCase()
             .includes(searchTerm.patient_name.toLowerCase())
         : true;
+      const dobMatch = dob
+        ? new Date(row.date_of_birth).toISOString().split("T")[0] ===
+          dob.toISOString().split("T")[0]
+        : true;
       const testDateMatch =
         startDate && endDate
           ? new Date(row.test_date) >= startDate &&
             new Date(row.test_date) <= endDate
           : true;
 
-      return mrnMatch && patientNameMatch && testDateMatch;
+      return mrnMatch && patientNameMatch && dobMatch && testDateMatch;
     });
 
     setFilteredRows(filteredData);
@@ -106,14 +92,6 @@ export default function PatientsTable() {
     setStartDate(null);
     setEndDate(null);
   };
-
-  // const handleDateChange = (date) => {
-  //   const selectedDate = date ? new Date(date.setHours(0, 0, 0, 0)) : null;
-  //   setSearchTerm({
-  //     ...searchTerm,
-  //     test_date: selectedDate,
-  //   });
-  // };
 
   const handleStartDateChange = (date) => {
     setStartDate(date);
@@ -177,8 +155,9 @@ export default function PatientsTable() {
             </label>
             <input
               type="text"
+              id="mrn"
               name="mrn"
-              placeholder="Patient Id"
+              placeholder="Enter Patient Id"
               value={searchTerm.mrn || ""}
               onChange={handleSearchTermChange}
               className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-gray-200 w-full"
@@ -215,9 +194,9 @@ export default function PatientsTable() {
             </label>
             <input
               type="text"
-              name="patient_name"
+              name="patient_code"
               placeholder="Test Code"
-              value={searchTerm.patient_name || ""}
+              value={searchTerm.patient_code || ""}
               onChange={handleSearchTermChange}
               className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-gray-200 w-full"
             />
