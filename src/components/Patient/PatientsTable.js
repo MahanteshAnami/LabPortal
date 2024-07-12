@@ -74,11 +74,21 @@ export default function PatientsTable() {
         ? new Date(row.date_of_birth).toISOString().split("T")[0] ===
           dob.toISOString().split("T")[0]
         : true;
-      const testDateMatch =
-        startDate && endDate
-          ? new Date(row.test_date) >= startDate &&
-            new Date(row.test_date) <= endDate
-          : true;
+      console.log(dobMatch);
+      let testDateMatch = true;
+      if (startDate && endDate) {
+        if (startDate.getTime() === endDate.getTime()) {
+          const startDateString = startDate.toISOString().split("T")[0];
+          testDateMatch =
+            row.test_date && row.test_date.includes(startDateString);
+        } else {
+          const rowTestDate = row.test_date
+            ? new Date(row.test_date.split(" ")[0])
+            : null;
+          testDateMatch =
+            rowTestDate && rowTestDate >= startDate && rowTestDate <= endDate;
+        }
+      }
 
       return mrnMatch && patientNameMatch && dobMatch && testDateMatch;
     });
@@ -91,6 +101,7 @@ export default function PatientsTable() {
     setFilteredRows(rows);
     setStartDate(null);
     setEndDate(null);
+    setDob(null);
   };
 
   const handleStartDateChange = (date) => {
